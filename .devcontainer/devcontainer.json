@@ -30,7 +30,8 @@
   },
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   "forwardPorts": [
-    3000
+    3000,
+    8976  // Wrangler OAuth port
   ],
   // Use 'portsAttributes' to set default properties for specific forwarded ports.
   // More info: https://containers.dev/implementors/json_reference/#port-attributes
@@ -43,7 +44,7 @@
   //https://www.kenmuse.com/blog/avoiding-dubious-ownership-in-dev-containers/
   "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}",
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "npm install wrangler --save-dev && npm install -g bun",
+  "postCreateCommand": "npm install -g wrangler && npm install -g bun",
   // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
   "remoteUser": "node",
   "mounts": [
