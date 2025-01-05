@@ -92,6 +92,15 @@
             border-radius: 10px;
             backdrop-filter: blur(5px);
         }
+
+        .circular-image, #right-image {
+            display: none; /* Hide by default */
+        }
+
+        .show-left-image .circular-image,
+        .show-right-image #right-image {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -133,27 +142,33 @@
                 <input type="text" class="form-control" id="message-input">
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" id="show-left-image" checked>
+                    <label class="form-check-label" for="show-left-image">
+                        बायीं छवि दिखाएं/Show Left Image
+                    </label>
+                </div>
+                <label class="form-label">आपका फोटो/Your Photo</label>
+                <input type="file" class="form-control" id="fg-upload" accept="image/*">
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" id="show-right-image" checked>
+                    <label class="form-check-label" for="show-right-image">
+                        दायीं छवि दिखाएं/Show Right Image
+                    </label>
+                </div>
+                <label class="form-label">दायीं ओर की छवि/Right Image</label>
+                <input type="file" class="form-control" id="right-image-upload" accept="image/*">
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-12 mb-3">
                 <label class="form-label">सन्देश/Message</label>
                 <textarea class="form-control" id="quote-input" rows="2"></textarea>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6 mb-3" style="display: none;">
-                <label class="form-label">बैकग्राउंड इमेज/Background Image</label>
-                <input type="file" class="form-control" id="bg-upload" accept="image/*">
-                <small id="bg-info" class="text-muted"></small>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label class="form-label">आपका फोटो/Your Photo</label>
-                <input type="file" class="form-control" id="fg-upload" accept="image/*">
-            </div>
-            <div class="col-md-6 mb-3">
-                <label class="form-label">दायीं ओर की छवि/Right Image</label>
-                <input type="file" class="form-control" id="right-image-upload" accept="image/*">
             </div>
         </div>
 

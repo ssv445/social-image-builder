@@ -74,6 +74,14 @@ function initializeApp() {
         $('#quote-input').closest('.row').hide(); // Hide the entire quote input row
     }
 
+    // Initialize image visibility
+    if ($('#show-left-image').is(':checked')) {
+        $('#original-container').addClass('show-left-image');
+    }
+    if ($('#show-right-image').is(':checked')) {
+        $('#original-container').addClass('show-right-image');
+    }
+
     // Generate initial preview
     updatePreview();
 }
@@ -133,5 +141,24 @@ $(document).ready(() => {
             const url = URL.createObjectURL(file);
             $('#right-image').attr('src', url);
         }
+    });
+
+    // Add image visibility handlers
+    $('#show-left-image').on('change', function() {
+        if (this.checked) {
+            $('#original-container').addClass('show-left-image');
+        } else {
+            $('#original-container').removeClass('show-left-image');
+        }
+        updatePreview();
+    });
+
+    $('#show-right-image').on('change', function() {
+        if (this.checked) {
+            $('#original-container').addClass('show-right-image');
+        } else {
+            $('#original-container').removeClass('show-right-image');
+        }
+        updatePreview();
     });
 }); 
