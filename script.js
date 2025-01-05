@@ -3,7 +3,8 @@ const defaults = {
     fg: 'https://raw.githubusercontent.com/ssv445/social-image-builder/refs/heads/main/images/user-02.png',
     quote: "अपना संस्थान के साथ जुड़ें हरित संगम 2025 पर्यावरण मेला में – एक अनूठा मेला, जो प्रेरणा और मस्ती का संगम है।",
     message: "अपना संस्थान, भीलवाड़ा",
-    name: 'आपका नाम'
+    name: 'आपका नाम',
+    allowQuoteEdit: true
 };
 
 function getUrlParams() {
@@ -13,7 +14,8 @@ function getUrlParams() {
         fg: params.get('fg') || defaults.fg,
         quote: params.get('quote') || defaults.quote,
         message: params.get('msg') || defaults.message,
-        name: params.get('name') || defaults.name
+        name: params.get('name') || defaults.name,
+        allowQuoteEdit: params.get('allowQuoteEdit') !== 'false' // true unless explicitly set to 'false'
     };
 }
 
@@ -62,6 +64,12 @@ function initializeApp() {
     $('#quote-input').val(params.quote);
     $('#message-input').val(params.message);
     $('#name-input').val(params.name);
+
+    // Handle quote editing permission
+    if (!params.allowQuoteEdit) {
+        $('#quote-input').prop('disabled', true);
+        $('#quote-input').closest('.row').hide(); // Hide the entire quote input row
+    }
 
     // Generate initial preview
     updatePreview();
