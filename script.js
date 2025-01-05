@@ -1,14 +1,14 @@
 const defaults = {
     bg: 'https://picsum.photos/1080/1920',
-    fg: 'https://picsum.photos/100/100',
+    fg: 'https://picsum.photos/200/200',
     message: 'Hello World',
     name: 'John Doe',
-    fgX: 800,
-    fgY: 1600,
-    messageX: 200,
-    messageY: 1800,
-    nameX: 200,
-    nameY: 250
+    fgX: 75,
+    fgY: 85,
+    messageX: 50,
+    messageY: 90,
+    nameX: 50,
+    nameY: 15
 };
 
 function getUrlParams() {
@@ -60,10 +60,19 @@ function initializeApp() {
     $('#message').text(params.message);
     $('#name').text(params.name);
 
-    // Set positions
-    $('#fg-image').css({ left: params.fgX, top: params.fgY });
-    $('#message').css({ left: params.messageX, top: params.messageY });
-    $('#name').css({ left: params.nameX, top: params.nameY });
+    // Set positions using percentages
+    $('#fg-image').css({ 
+        left: params.fgX + '%', 
+        top: params.fgY + '%' 
+    });
+    $('#message').css({ 
+        left: params.messageX + '%', 
+        top: params.messageY + '%' 
+    });
+    $('#name').css({ 
+        left: params.nameX + '%', 
+        top: params.nameY + '%' 
+    });
 
     // Set input values
     $('#message-input').val(params.message);
@@ -124,22 +133,22 @@ $(document).ready(() => {
             case 'fg-x':
             case 'fg-y':
                 $('#fg-image').css({
-                    left: $('#fg-x').val(),
-                    top: $('#fg-y').val()
+                    left: $('#fg-x').val() + '%',
+                    top: $('#fg-y').val() + '%'
                 });
                 break;
             case 'message-x':
             case 'message-y':
                 $('#message').css({
-                    left: $('#message-x').val(),
-                    top: $('#message-y').val()
+                    left: $('#message-x').val() + '%',
+                    top: $('#message-y').val() + '%'
                 });
                 break;
             case 'name-x':
             case 'name-y':
                 $('#name').css({
-                    left: $('#name-x').val(),
-                    top: $('#name-y').val()
+                    left: $('#name-x').val() + '%',
+                    top: $('#name-y').val() + '%'
                 });
                 break;
         }
