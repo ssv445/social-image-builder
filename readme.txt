@@ -39,7 +39,7 @@ e) DOWNLOAD FINAL IMAGE
 
 3.	PROJECT STRUCTURE: standard nextjs structure
 
-	4.	IMPLEMENTATION DETAILS
+4.	IMPLEMENTATION DETAILS
 a) INITIALIZATION
 
 	•	Create a Next.js app using npx create-next-app my-app.
