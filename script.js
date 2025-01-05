@@ -1,7 +1,7 @@
 const defaults = {
     bg: 'https://picsum.photos/1080/1920',
     fg: 'https://picsum.photos/200/200',
-    quote: 'Your Quote Goes Here',
+    quote: "'अपना संस्थान' की ओर से आयोजित हरित संगम 2025 पर्यावरण मेला में आइए, जहां हर कदम प्रकृति के प्रति समर्पण है।",
     message: 'Hello World',
     name: 'John Doe'
 };
