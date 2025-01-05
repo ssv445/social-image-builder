@@ -34,22 +34,46 @@ function updatePreview() {
     });
 }
 
-function downloadImage() {
-    html2canvas(document.getElementById('original-container'), {
+async function shareOrDownload() {
+    const canvas = await html2canvas(document.getElementById('original-container'), {
         scale: 3,
         useCORS: true,
         allowTaint: true
-    }).then(canvas => {
-        const link = document.createElement('a');
-        link.download = 'harit-sangam-2025.png';
-        link.href = canvas.toDataURL('image/png');
-        link.click();
-
-        //wait for 5 seconds
-        setTimeout(() => {
-            window.location.href = 'https://bit.ly/4eaZedj?r=qr';
-        }, 5000);
     });
+
+    // Convert canvas to blob
+    const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+    
+    // Check if Web Share API is supported
+    if (navigator.share && navigator.canShare) {
+        try {
+            const file = new File([blob], 'harit-sangam-2025.png', { type: 'image/png' });
+            await navigator.share({
+                title: 'हरित संगम 2025',
+                text: 'हरित संगम 2025 पर्यावरण मेला',
+                files: [file]
+            });
+        } catch (err) {
+            console.log('Share failed:', err);
+            // Fallback to download if share fails
+            downloadFile(canvas);
+        }
+    } else {
+        // Fallback for desktop or unsupported browsers
+        downloadFile(canvas);
+    }
+
+    // Redirect after 10 seconds
+    setTimeout(() => {
+        window.location.href = 'https://bit.ly/4eaZedj?r=qr';
+    }, 10000);
+}
+
+function downloadFile(canvas) {
+    const link = document.createElement('a');
+    link.download = 'harit-sangam-2025.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
 }
 
 function initializeApp() {
@@ -132,8 +156,8 @@ $(document).ready(() => {
     // Preview handler
     $('.preview-btn').on('click', updatePreview);
 
-    // Download handler
-    $('.download-btn').on('click', downloadImage);
+    // Update download handler to use share
+    $('.download-btn').on('click', shareOrDownload);
 
     // Add right image upload handler
     $('#right-image-upload').on('change', function(e) {
