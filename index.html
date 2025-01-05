@@ -13,8 +13,10 @@
             position: absolute;
             background-size: cover;
             background-position: center;
-            display: grid;
-            grid-template-rows: 15% 70% 15%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 50px;
         }
         
         #preview-container {
@@ -32,25 +34,14 @@
             object-fit: contain;
         }
 
-        .name-section {
-            grid-row: 1;
+        .bottom-content {
             display: flex;
-            justify-content: center;
             align-items: center;
-        }
-
-        .image-section {
-            grid-row: 2;
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-        }
-
-        .message-section {
-            grid-row: 3;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            gap: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
         }
 
         .circular-image {
@@ -58,14 +49,29 @@
             height: 200px;
             border-radius: 50%;
             object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .text-content {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         .text-overlay {
             color: white;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
             font-size: 48px;
-            text-align: center;
-            white-space: nowrap;
+            text-align: left;
+            white-space: pre-line;
+        }
+
+        #message {
+            font-size: 42px;
+        }
+
+        #name {
+            font-size: 36px;
         }
     </style>
 </head>
@@ -73,17 +79,13 @@
     <div class="container mt-4">
         <!-- Hidden Original Container -->
         <div id="original-container">
-            
-            <div class="message-section">
-                <div class="text-overlay" id="message"></div>
-            </div>
-            <div class="image-section">
+            <div class="bottom-content">
                 <img class="circular-image" id="fg-image">
+                <div class="text-content">
+                    <div class="text-overlay" id="message"></div>
+                    <div class="text-overlay" id="name"></div>
+                </div>
             </div>
-            <div class="name-section">
-                <div class="text-overlay" id="name"></div>
-            </div>
-            
         </div>
 
         <!-- Preview Container -->
