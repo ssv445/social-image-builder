@@ -1,5 +1,5 @@
 const defaults = {
-    bg: 'https://cms.readybytes.in/assets/edc3c367-0979-4f93-8650-14110c182195',
+    bg: 'https://raw.githubusercontent.com/ssv445/social-image-builder/refs/heads/main/images/background-01.png',
     fg: 'https://picsum.photos/200/200',
     quote: "'अपना संस्थान' की ओर से आयोजित हरित संगम 2025 पर्यावरण मेला में आइए, जहां हर कदम प्रकृति के प्रति समर्पण है।",
     message: 'अध्यक्ष, भीलवाड़ा महानगर, अपना संस्थान ',
