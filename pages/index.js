@@ -68,7 +68,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-100 pb-[200px]">
       {/* Preview Section */}
       <div className="relative w-full h-[60vh] bg-white shadow-lg">
         <div id="preview" className="relative w-full h-full max-w-4xl mx-auto">
@@ -101,16 +101,6 @@ export default function Home() {
       {/* Controls Section */}
       <div className="fixed bottom-0 left-0 right-0 bg-white shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
         <div className="max-w-4xl mx-auto p-4">
-          {/* Action Buttons */}
-          <div className="flex gap-4 mb-4">
-            <button 
-              onClick={handleDownload}
-              className="flex-1 bg-blue-600 text-white py-3 px-6 rounded-lg text-lg font-semibold hover:bg-blue-700 active:bg-blue-800 transition-colors"
-            >
-              Download Image
-            </button>
-          </div>
-
           {/* Sliding Panel for Controls */}
           <div className="space-y-4">
             {/* File Uploads */}
@@ -211,6 +201,31 @@ export default function Home() {
                   </div>
                 </div>
               </div>
+            </div>
+
+            {/* Action Buttons - Moved to bottom */}
+            <div className="flex gap-4 pt-4 border-t">
+              <button 
+                onClick={() => {
+                  // Force a re-render of the preview
+                  const preview = document.getElementById('preview');
+                  if (preview) {
+                    preview.style.opacity = '0.99';
+                    setTimeout(() => {
+                      preview.style.opacity = '1';
+                    }, 50);
+                  }
+                }}
+                className="flex-1 bg-gray-600 text-white py-3 px-6 rounded-lg text-lg font-semibold hover:bg-gray-700 active:bg-gray-800 transition-colors"
+              >
+                Regenerate Preview
+              </button>
+              <button 
+                onClick={handleDownload}
+                className="flex-1 bg-blue-600 text-white py-3 px-6 rounded-lg text-lg font-semibold hover:bg-blue-700 active:bg-blue-800 transition-colors"
+              >
+                Download Image
+              </button>
             </div>
           </div>
         </div>
