@@ -68,100 +68,151 @@ export default function Home() {
   };
 
   return (
-    <div className="container">
-      <div className="controls">
-        <div className="upload-section">
-          <div>
-            <label>Background Image:</label>
-            <input 
-              type="file" 
-              accept="image/*" 
-              onChange={(e) => handleImageUpload(e, 'backgroundUrl')} 
-            />
-            {bgDimensions.width > 0 && (
-              <p>Dimensions: {bgDimensions.width} x {bgDimensions.height}</p>
-            )}
+    <div className="min-h-screen bg-gray-100">
+      {/* Preview Section */}
+      <div className="relative w-full h-[60vh] bg-white shadow-lg">
+        <div id="preview" className="relative w-full h-full max-w-4xl mx-auto">
+          <img 
+            src={config.backgroundUrl} 
+            alt="Background" 
+            className="w-full h-full object-contain"
+          />
+          <img
+            src={config.foregroundUrl}
+            alt="Foreground"
+            className="absolute w-24 h-24 rounded-full object-cover"
+            style={{ left: config.fgX, top: config.fgY }}
+          />
+          <div 
+            className="absolute text-white text-2xl font-bold drop-shadow-lg"
+            style={{ left: config.msgX, top: config.msgY }}
+          >
+            {config.message}
           </div>
-          <div>
-            <label>Foreground Image:</label>
-            <input 
-              type="file" 
-              accept="image/*" 
-              onChange={(e) => handleImageUpload(e, 'foregroundUrl')} 
-            />
-          </div>
-        </div>
-
-        <div className="text-section">
-          <div>
-            <label>Message:</label>
-            <input
-              type="text"
-              value={config.message}
-              onChange={(e) => setConfig(prev => ({ ...prev, message: e.target.value }))}
-            />
-            <div>
-              <label>X:</label>
-              <input
-                type="number"
-                value={config.msgX}
-                onChange={(e) => setConfig(prev => ({ ...prev, msgX: parseInt(e.target.value) }))}
-              />
-              <label>Y:</label>
-              <input
-                type="number"
-                value={config.msgY}
-                onChange={(e) => setConfig(prev => ({ ...prev, msgY: parseInt(e.target.value) }))}
-              />
-            </div>
-          </div>
-
-          <div>
-            <label>Name:</label>
-            <input
-              type="text"
-              value={config.name}
-              onChange={(e) => setConfig(prev => ({ ...prev, name: e.target.value }))}
-            />
-            <div>
-              <label>X:</label>
-              <input
-                type="number"
-                value={config.nameX}
-                onChange={(e) => setConfig(prev => ({ ...prev, nameX: parseInt(e.target.value) }))}
-              />
-              <label>Y:</label>
-              <input
-                type="number"
-                value={config.nameY}
-                onChange={(e) => setConfig(prev => ({ ...prev, nameY: parseInt(e.target.value) }))}
-              />
-            </div>
+          <div 
+            className="absolute text-white text-xl font-semibold drop-shadow-lg"
+            style={{ left: config.nameX, top: config.nameY }}
+          >
+            {config.name}
           </div>
         </div>
-
-        <button onClick={handleDownload}>Download Image</button>
       </div>
 
-      <div id="preview" className="preview">
-        <img src={config.backgroundUrl} alt="Background" className="background" />
-        <img
-          src={config.foregroundUrl}
-          alt="Foreground"
-          className="foreground"
-          style={{ left: config.fgX, top: config.fgY }}
-        />
-        <div 
-          className="text message"
-          style={{ left: config.msgX, top: config.msgY }}
-        >
-          {config.message}
-        </div>
-        <div 
-          className="text name"
-          style={{ left: config.nameX, top: config.nameY }}
-        >
-          {config.name}
+      {/* Controls Section */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
+        <div className="max-w-4xl mx-auto p-4">
+          {/* Action Buttons */}
+          <div className="flex gap-4 mb-4">
+            <button 
+              onClick={handleDownload}
+              className="flex-1 bg-blue-600 text-white py-3 px-6 rounded-lg text-lg font-semibold hover:bg-blue-700 active:bg-blue-800 transition-colors"
+            >
+              Download Image
+            </button>
+          </div>
+
+          {/* Sliding Panel for Controls */}
+          <div className="space-y-4">
+            {/* File Uploads */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">
+                  Background Image
+                </label>
+                <input 
+                  type="file" 
+                  accept="image/*" 
+                  onChange={(e) => handleImageUpload(e, 'backgroundUrl')} 
+                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                />
+                {bgDimensions.width > 0 && (
+                  <p className="text-sm text-gray-500">
+                    {bgDimensions.width} x {bgDimensions.height}
+                  </p>
+                )}
+              </div>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">
+                  Foreground Image
+                </label>
+                <input 
+                  type="file" 
+                  accept="image/*" 
+                  onChange={(e) => handleImageUpload(e, 'foregroundUrl')} 
+                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                />
+              </div>
+            </div>
+
+            {/* Text Controls */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Message Controls */}
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">
+                  Message
+                </label>
+                <input
+                  type="text"
+                  value={config.message}
+                  onChange={(e) => setConfig(prev => ({ ...prev, message: e.target.value }))}
+                  className="w-full px-3 py-2 border rounded-lg"
+                />
+                <div className="flex gap-4">
+                  <div className="flex-1">
+                    <label className="block text-sm text-gray-600">X</label>
+                    <input
+                      type="number"
+                      value={config.msgX}
+                      onChange={(e) => setConfig(prev => ({ ...prev, msgX: parseInt(e.target.value) }))}
+                      className="w-full px-3 py-2 border rounded-lg"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <label className="block text-sm text-gray-600">Y</label>
+                    <input
+                      type="number"
+                      value={config.msgY}
+                      onChange={(e) => setConfig(prev => ({ ...prev, msgY: parseInt(e.target.value) }))}
+                      className="w-full px-3 py-2 border rounded-lg"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Name Controls */}
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  value={config.name}
+                  onChange={(e) => setConfig(prev => ({ ...prev, name: e.target.value }))}
+                  className="w-full px-3 py-2 border rounded-lg"
+                />
+                <div className="flex gap-4">
+                  <div className="flex-1">
+                    <label className="block text-sm text-gray-600">X</label>
+                    <input
+                      type="number"
+                      value={config.nameX}
+                      onChange={(e) => setConfig(prev => ({ ...prev, nameX: parseInt(e.target.value) }))}
+                      className="w-full px-3 py-2 border rounded-lg"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <label className="block text-sm text-gray-600">Y</label>
+                    <input
+                      type="number"
+                      value={config.nameY}
+                      onChange={(e) => setConfig(prev => ({ ...prev, nameY: parseInt(e.target.value) }))}
+                      className="w-full px-3 py-2 border rounded-lg"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
