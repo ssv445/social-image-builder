@@ -74,10 +74,11 @@ function initializeApp() {
         $('#quote-input').closest('.row').hide(); // Hide the entire quote input row
     }
 
-    // Initialize image visibility
+    // Initialize image visibility - only left image checked by default
     if ($('#show-left-image').is(':checked')) {
         $('#original-container').addClass('show-left-image');
     }
+    // Only add right image class if explicitly checked
     if ($('#show-right-image').is(':checked')) {
         $('#original-container').addClass('show-right-image');
     }
