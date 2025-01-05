@@ -13,6 +13,8 @@
             position: absolute;
             background-size: cover;
             background-position: center;
+            display: grid;
+            grid-template-rows: 15% 70% 15%;
         }
         
         #preview-container {
@@ -30,21 +32,38 @@
             object-fit: contain;
         }
 
+        .name-section {
+            grid-row: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-section {
+            grid-row: 2;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .message-section {
+            grid-row: 3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         .circular-image {
             width: 200px;
             height: 200px;
             border-radius: 50%;
             object-fit: cover;
-            position: absolute;
-            transform: translate(-50%, -50%);
         }
 
         .text-overlay {
-            position: absolute;
             color: white;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
             font-size: 48px;
-            transform: translate(-50%, -50%);
             text-align: center;
             white-space: nowrap;
         }
@@ -54,9 +73,17 @@
     <div class="container mt-4">
         <!-- Hidden Original Container -->
         <div id="original-container">
-            <img class="circular-image" id="fg-image">
-            <div class="text-overlay" id="message"></div>
-            <div class="text-overlay" id="name"></div>
+            
+            <div class="message-section">
+                <div class="text-overlay" id="message"></div>
+            </div>
+            <div class="image-section">
+                <img class="circular-image" id="fg-image">
+            </div>
+            <div class="name-section">
+                <div class="text-overlay" id="name"></div>
+            </div>
+            
         </div>
 
         <!-- Preview Container -->
@@ -86,31 +113,6 @@
             <div class="col-md-6 mb-3">
                 <label class="form-label">Name</label>
                 <input type="text" class="form-control" id="name-input">
-            </div>
-        </div>
-
-        <!-- Reorganized X,Y inputs -->
-        <div class="row align-items-end g-3">
-            <div class="col-md-4">
-                <label class="form-label">Foreground Position</label>
-                <div class="input-group">
-                    <input type="number" class="form-control" id="fg-x" placeholder="X">
-                    <input type="number" class="form-control" id="fg-y" placeholder="Y">
-                </div>
-            </div>
-            <div class="col-md-4">
-                <label class="form-label">Message Position</label>
-                <div class="input-group">
-                    <input type="number" class="form-control" id="message-x" placeholder="X">
-                    <input type="number" class="form-control" id="message-y" placeholder="Y">
-                </div>
-            </div>
-            <div class="col-md-4">
-                <label class="form-label">Name Position</label>
-                <div class="input-group">
-                    <input type="number" class="form-control" id="name-x" placeholder="X">
-                    <input type="number" class="form-control" id="name-y" placeholder="Y">
-                </div>
             </div>
         </div>
 

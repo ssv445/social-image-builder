@@ -2,13 +2,7 @@ const defaults = {
     bg: 'https://picsum.photos/1080/1920',
     fg: 'https://picsum.photos/200/200',
     message: 'Hello World',
-    name: 'John Doe',
-    fgX: 75,
-    fgY: 85,
-    messageX: 50,
-    messageY: 90,
-    nameX: 50,
-    nameY: 15
+    name: 'John Doe'
 };
 
 function getUrlParams() {
@@ -17,13 +11,7 @@ function getUrlParams() {
         bg: params.get('bg') || defaults.bg,
         fg: params.get('fg') || defaults.fg,
         message: params.get('msg') || defaults.message,
-        name: params.get('name') || defaults.name,
-        fgX: parseInt(params.get('fgX')) || defaults.fgX,
-        fgY: parseInt(params.get('fgY')) || defaults.fgY,
-        messageX: parseInt(params.get('msgX')) || defaults.messageX,
-        messageY: parseInt(params.get('msgY')) || defaults.messageY,
-        nameX: parseInt(params.get('nameX')) || defaults.nameX,
-        nameY: parseInt(params.get('nameY')) || defaults.nameY
+        name: params.get('name') || defaults.name
     };
 }
 
@@ -60,29 +48,9 @@ function initializeApp() {
     $('#message').text(params.message);
     $('#name').text(params.name);
 
-    // Set positions using percentages
-    $('#fg-image').css({ 
-        left: params.fgX + '%', 
-        top: params.fgY + '%' 
-    });
-    $('#message').css({ 
-        left: params.messageX + '%', 
-        top: params.messageY + '%' 
-    });
-    $('#name').css({ 
-        left: params.nameX + '%', 
-        top: params.nameY + '%' 
-    });
-
     // Set input values
     $('#message-input').val(params.message);
     $('#name-input').val(params.name);
-    $('#fg-x').val(params.fgX);
-    $('#fg-y').val(params.fgY);
-    $('#message-x').val(params.messageX);
-    $('#message-y').val(params.messageY);
-    $('#name-x').val(params.nameX);
-    $('#name-y').val(params.nameY);
 
     // Generate initial preview
     updatePreview();
@@ -122,36 +90,6 @@ $(document).ready(() => {
 
     $('#name-input').on('input', function() {
         $('#name').text($(this).val());
-    });
-
-    // Position input handlers
-    $('.form-control[type="number"]').on('input', function() {
-        const id = $(this).attr('id');
-        const value = $(this).val();
-
-        switch(id) {
-            case 'fg-x':
-            case 'fg-y':
-                $('#fg-image').css({
-                    left: $('#fg-x').val() + '%',
-                    top: $('#fg-y').val() + '%'
-                });
-                break;
-            case 'message-x':
-            case 'message-y':
-                $('#message').css({
-                    left: $('#message-x').val() + '%',
-                    top: $('#message-y').val() + '%'
-                });
-                break;
-            case 'name-x':
-            case 'name-y':
-                $('#name').css({
-                    left: $('#name-x').val() + '%',
-                    top: $('#name-y').val() + '%'
-                });
-                break;
-        }
     });
 
     // Preview handler
