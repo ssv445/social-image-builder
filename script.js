@@ -37,9 +37,14 @@ function downloadImage() {
         allowTaint: true
     }).then(canvas => {
         const link = document.createElement('a');
-        link.download = 'personalized-image.png';
+        link.download = 'harit-sangam-2025.png';
         link.href = canvas.toDataURL('image/png');
         link.click();
+
+        //wait for 5 seconds
+        setTimeout(() => {
+            window.location.href = 'https://bit.ly/4eaZedj?r=qr';
+        }, 5000);
     });
 }
 
