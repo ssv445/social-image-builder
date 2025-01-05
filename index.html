@@ -38,27 +38,30 @@
         .bottom-content {
             display: flex;
             align-items: center;
-            gap: 30px;
+            gap: 10px;
             background: rgba(255, 255, 255, 0.5);
-            padding: 30px;
+            padding: 10px;
             border-radius: 10px;
             backdrop-filter: blur(5px);
-            margin-bottom: 250px;;
-        }
-
-        .circular-image {
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            object-fit: cover;
-            flex-shrink: 0;
+            margin-bottom: 232px;
         }
 
         .text-content {
             display: flex;
             flex-direction: column;
             gap: 10px;
+            flex: 1;
         }
+
+        .circular-image {
+            width: 275px;
+            height: 275px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        
 
         .text-overlay {
             color: rgb(0, 0, 0);
@@ -82,7 +85,7 @@
             font-size: 72px;
             text-align: center;
             white-space: pre-line;
-            padding: 0 50px;
+            padding: 0 10px;
             font-weight: bold;
 
             background: rgba(255, 255, 255, 0.5);
@@ -102,6 +105,7 @@
                     <div class="text-overlay" id="name"></div>
                     <div class="text-overlay" id="message"></div>
                 </div>
+                <img class="circular-image" id="right-image">
             </div>
         </div>
 
@@ -146,6 +150,10 @@
             <div class="col-md-6 mb-3">
                 <label class="form-label">आपका फोटो/Your Photo</label>
                 <input type="file" class="form-control" id="fg-upload" accept="image/*">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">दायीं ओर की छवि/Right Image</label>
+                <input type="file" class="form-control" id="right-image-upload" accept="image/*">
             </div>
         </div>
 

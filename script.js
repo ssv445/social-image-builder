@@ -1,6 +1,7 @@
 const defaults = {
     bg: 'https://raw.githubusercontent.com/ssv445/social-image-builder/refs/heads/main/images/background-02.png',
     fg: 'https://raw.githubusercontent.com/ssv445/social-image-builder/refs/heads/main/images/user-02.png',
+    rightImage: 'https://raw.githubusercontent.com/ssv445/social-image-builder/refs/heads/main/images/user-02.png',
     quote: "अपना संस्थान के साथ जुड़ें हरित संगम 2025 पर्यावरण मेला में – एक अनूठा मेला, जो प्रेरणा और मस्ती का संगम है।",
     message: "अपना संस्थान, भीलवाड़ा",
     name: 'आपका नाम',
@@ -12,10 +13,11 @@ function getUrlParams() {
     return {
         bg: params.get('bg') || defaults.bg,
         fg: params.get('fg') || defaults.fg,
+        rightImage: params.get('rightImage') || defaults.rightImage,
         quote: params.get('quote') || defaults.quote,
         message: params.get('msg') || defaults.message,
         name: params.get('name') || defaults.name,
-        allowQuoteEdit: params.get('allowQuoteEdit') !== 'false' // true unless explicitly set to 'false'
+        allowQuoteEdit: params.get('allowQuoteEdit') !== 'false'
     };
 }
 
@@ -56,6 +58,7 @@ function initializeApp() {
     // Set initial values
     $('#original-container').css('background-image', `url(${params.bg})`);
     $('#fg-image').attr('src', params.fg);
+    $('#right-image').attr('src', params.rightImage);
     $('#quote').text(params.quote);
     $('#message').text(params.message);
     $('#name').text(params.name);
@@ -122,4 +125,13 @@ $(document).ready(() => {
 
     // Download handler
     $('.download-btn').on('click', downloadImage);
+
+    // Add right image upload handler
+    $('#right-image-upload').on('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const url = URL.createObjectURL(file);
+            $('#right-image').attr('src', url);
+        }
+    });
 }); 
