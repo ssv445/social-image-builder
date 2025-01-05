@@ -3,10 +3,10 @@ const defaults = {
     fg: 'https://picsum.photos/100/100',
     message: 'Hello World',
     name: 'John Doe',
-    fgX: 50,
-    fgY: 50,
+    fgX: 800,
+    fgY: 1600,
     messageX: 200,
-    messageY: 200,
+    messageY: 1800,
     nameX: 200,
     nameY: 250
 };
