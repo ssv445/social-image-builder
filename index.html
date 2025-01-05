@@ -53,6 +53,7 @@
             <img id="preview-image" class="img-fluid">
         </div>
 
+        
         <!-- Controls -->
         <div class="row">
             <div class="col-md-6 mb-3">
@@ -77,38 +78,34 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-3 mb-3">
-                <label class="form-label">Foreground X</label>
-                <input type="number" class="form-control" id="fg-x">
+        <!-- Reorganized X,Y inputs -->
+        <div class="row align-items-end g-3">
+            <div class="col-md-4">
+                <label class="form-label">Foreground Position</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" id="fg-x" placeholder="X">
+                    <input type="number" class="form-control" id="fg-y" placeholder="Y">
+                </div>
             </div>
-            <div class="col-md-3 mb-3">
-                <label class="form-label">Foreground Y</label>
-                <input type="number" class="form-control" id="fg-y">
+            <div class="col-md-4">
+                <label class="form-label">Message Position</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" id="message-x" placeholder="X">
+                    <input type="number" class="form-control" id="message-y" placeholder="Y">
+                </div>
             </div>
-            <div class="col-md-3 mb-3">
-                <label class="form-label">Message X</label>
-                <input type="number" class="form-control" id="message-x">
-            </div>
-            <div class="col-md-3 mb-3">
-                <label class="form-label">Message Y</label>
-                <input type="number" class="form-control" id="message-y">
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-3 mb-3">
-                <label class="form-label">Name X</label>
-                <input type="number" class="form-control" id="name-x">
-            </div>
-            <div class="col-md-3 mb-3">
-                <label class="form-label">Name Y</label>
-                <input type="number" class="form-control" id="name-y">
+            <div class="col-md-4">
+                <label class="form-label">Name Position</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" id="name-x" placeholder="X">
+                    <input type="number" class="form-control" id="name-y" placeholder="Y">
+                </div>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-12 mb-3">
+        <div class="row mt-4">
+            <div class="col-12 d-flex gap-2 mb-3">
+                <button id="preview-btn" class="btn btn-secondary">Generate Preview</button>
                 <button id="download-btn" class="btn btn-primary">Download Image</button>
             </div>
         </div>

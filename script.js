@@ -1,5 +1,5 @@
 const defaults = {
-    bg: 'https://picsum.photos/500/500',
+    bg: 'https://picsum.photos/1080/1920',
     fg: 'https://picsum.photos/100/100',
     message: 'Hello World',
     name: 'John Doe',
@@ -95,8 +95,6 @@ $(document).ready(() => {
                 $('#bg-info').text(`Dimensions: ${this.width}x${this.height}`);
             };
             img.src = url;
-            
-            updatePreview();
         }
     });
 
@@ -105,19 +103,16 @@ $(document).ready(() => {
         if (file) {
             const url = URL.createObjectURL(file);
             $('#fg-image').attr('src', url);
-            updatePreview();
         }
     });
 
     // Text input handlers
     $('#message-input').on('input', function() {
         $('#message').text($(this).val());
-        updatePreview();
     });
 
     $('#name-input').on('input', function() {
         $('#name').text($(this).val());
-        updatePreview();
     });
 
     // Position input handlers
@@ -148,8 +143,10 @@ $(document).ready(() => {
                 });
                 break;
         }
-        updatePreview();
     });
+
+    // Preview handler
+    $('#preview-btn').on('click', updatePreview);
 
     // Download handler
     $('#download-btn').on('click', downloadImage);
