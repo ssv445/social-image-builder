@@ -18,6 +18,7 @@ function getUrlParams() {
 }
 
 function updatePreview() {
+    console.log('updatePreview');
     html2canvas(document.getElementById('original-container'), {
         scale: 1,
         useCORS: true,
@@ -25,6 +26,7 @@ function updatePreview() {
     }).then(canvas => {
         const dataUrl = canvas.toDataURL('image/png');
         $('#preview-image').attr('src', dataUrl);
+        console.log('updatePreview done');
     });
 }
 
@@ -81,6 +83,7 @@ $(document).ready(() => {
                 $('#bg-info').text(`Dimensions: ${this.width}x${this.height}`);
             };
             img.src = url;
+            
         }
     });
 
@@ -102,8 +105,8 @@ $(document).ready(() => {
     });
 
     // Preview handler
-    $('#preview-btn').on('click', updatePreview);
+    $('.preview-btn').on('click', updatePreview);
 
     // Download handler
-    $('#download-btn').on('click', downloadImage);
+    $('.download-btn').on('click', downloadImage);
 }); 
