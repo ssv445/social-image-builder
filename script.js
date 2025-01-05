@@ -50,7 +50,7 @@ async function shareOrDownload() {
             const file = new File([blob], 'harit-sangam-2025.png', { type: 'image/png' });
             await navigator.share({
                 title: 'हरित संगम 2025',
-                text: 'हरित संगम 2025 पर्यावरण मेला',
+                text: 'हरित संगम 2025 पर्यावरण मेला, 10-14 जनवरी 2025, भीलवाड़ा',
                 files: [file]
             });
         } catch (err) {
