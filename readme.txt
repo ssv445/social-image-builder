@@ -1,89 +1,109 @@
-Next.js Single-Page Image Overlay Project
----------------------------------
+PROJECT SPECIFICATION FOR A SINGLE-PAGE NEXT.JS (JAVASCRIPT ONLY) IMAGE PERSONALIZATION APP
+	1.	OVERVIEW
 
-This project is a mobile-first, single-page app using Next.js (old /pages-based routing). It lets users:
-1.	View a background image.
-2.	Overlay a foreground circular image.
-3.	Select a new image from their device (which instantly replaces the foreground).
-4.	Download the combined image in high quality—all done client-side.
-------------------------------------------------------------------
+	•	This application is built with Next.js using the old /pages routing system.
+	•	All coding should be in JavaScript (no TypeScript).
+	•	It should be a single-page application (only one route, pages/index.js).
+	•	The app is mobile-friendly and handles all functionality in the browser (no backend API).
 
-1.	Tech Stack & Setup
-	•	Framework: Next.js (old /pages-based routing).
-	•	UI Handling: Plain React/Next.js + CSS.
-	•	Image Capture/Download: Use a library like html2canvas or dom-to-image.
-	•	No Server Upload: All image manipulations and downloads happen in the browser.
+	2.	CORE FUNCTIONALITY
+a) DEFAULT VALUES AND URL OVERRIDES
 
-2.	Layout & UI
-Mobile-First:
-	•	Optimize the layout so it fits well on a mobile screen.
-	•	Make sure all elements (background image, circular overlay, file input, and download button) are touch-friendly.
+	•	The app must support default values for:
+	•	Background image URL
+	•	Foreground circular image URL
+	•	Message text
+	•	Name text
+	•	X and Y positions for images and text
+	•	URL parameters can override these defaults (e.g., ?bg=someimage.jpg&fg=avatar.png&msg=Hello&name=John&msgX=50&msgY=100&fgX=200&fgY=300).
 
-Preview Area:
-	•	A background image (static or default provided).
-	•	A foreground image overlaid on top of the background, shaped as a circle.
-	•	The foreground image will change when the user selects a new file.
+b) IMAGE UPLOADS
+	•	Users can optionally upload a new background image or a new circular foreground image using  elements.
+	•	When a file is selected, the preview updates immediately (no server call).
+	•	The background image’s dimensions (width and height) must be displayed after selection or loading.
 
-Image Input:
-	•	 to let users pick a file from their device.
-	•	Once a user picks a new file, instantly show it in the circular overlay—no server call.
+c) TEXT FIELDS
+	•	There are two text inputs: one for a message, one for a name.
+	•	Each text field has a default value (which may be overridden by a URL parameter).
+	•	Text fields update in real-time on the preview.
 
-Download Button:
-	•	On click, combine both images and trigger a download in high quality.
+d) POSITIONING ELEMENTS
+	•	Both the background image and the circular image can be positioned with X, Y coordinates in state.
+	•	Both text fields can also be positioned with X, Y coordinates.
+	•	X, Y coordinates can come from default values, user input, or URL parameters.
 
-	3.	Core Functionalities
-File Selection & Preview Update:
+e) DOWNLOAD FINAL IMAGE
+	•	A “Download” button captures the entire preview area (background, circular image, both text fields) as a single image.
+	•	The capture process uses a client-side library such as html2canvas or dom-to-image.
+	•	The final image downloads in high resolution (allow setting a “scale” or similar option).
 
-	•	Reads the chosen file (client-side) and updates the circular overlay.
+3.	PROJECT STRUCTURE: standard nextjs structure
 
-Client-Side Image Generation:
-	•	Use html2canvas or dom-to-image to capture the preview area as a single image.
-	•	Download the resulting PNG or JPEG automatically.
+	4.	IMPLEMENTATION DETAILS
+a) INITIALIZATION
 
-Quality & Scaling:
-	•	Ensure the preview is mobile-sized, but the downloaded image is high resolution.
-	•	You can adjust the scale or quality parameters in html2canvas or dom-to-image.
+	•	Create a Next.js app using npx create-next-app my-app.
+	•	Ensure the old page-based routing structure (pages folder).
+	•	Delete unnecessary files so you only have pages/index.js as the main route.
 
-	4.	Directory Structure
-A minimal approach might look like this:
-my-app
-├─ pages
-│  └─ index.js        (Single page with background image, overlay, file input, and download button)
-├─ public
-│  └─ images          (Optional - store default background image here)
-├─ styles
-│  └─ globals.css     (Global styles or use Tailwind, etc.)
-└─ package.json
-	5.	Implementation Steps
-	6.	Initialize Next.js
-npx create-next-app my-app
-Make sure the router is the old pages-based routing (Next.js 12 or earlier, or using the /pages convention in Next.js 13+).
-	7.	Install Dependencies
-cd my-app
-npm install html2canvas
-or
-npm install dom-to-image
-	8.	Create the Single Page
-In pages/index.js, set up the layout with:
-	•	A default background image.
-	•	A circular overlay for the foreground image.
-	•	An .
-	•	A Download button.
-	9.	Handle File Input
-On  change event, read the file with URL.createObjectURL (or FileReader).
-Update the circular overlay with the new file.
-	10.	Generate & Download Image
-	•	Wrap the preview area in a container ….
-	•	On clicking the Download button:
-	1.	Use html2canvas(document.getElementById(“capture”), { …options }) or equivalent from dom-to-image.
-	2.	Convert the result to a blob or base64 data URL.
-	3.	Create a temporary  element to trigger the file download.
-	11.	Optimize for Mobile
-	•	Use CSS to ensure the overlay is always sized and positioned properly on smaller screens.
-	•	Make the file input and download button large enough to tap easily on mobile.
-	12.	Tips & Notes
+b) DEPENDENCIES
+	•	Install html2canvas or dom-to-image for client-side image generation.
+	•	Optionally install a state management approach or just use React hooks within the page.
 
-	•	High Resolution: With html2canvas, use { scale: 2 or 3 } to get a higher-quality image.
-	•	Circular Overlay: Use border-radius: 50% in CSS or inline styles for the foreground image container.
-	•	No Server Calls: Everything remains client-side. No need for an API route or backend logic.
-	•	Testing: Verify on multiple mobile devices/emulators for proper sizing and functionality.
+c) LOADING DEFAULTS AND URL PARAMETERS
+	•	In getInitialProps (or using router.query) parse any URL parameters (bg, fg, msg, name, msgX, msgY, fgX, fgY, etc.).
+	•	Merge these with your own predefined default values.
+
+d) STATE MANAGEMENT
+	•	Use React’s useState hooks to store:
+	•	backgroundImageUrl
+	•	foregroundImageUrl
+	•	messageText
+	•	nameText
+	•	backgroundPosition (usually 0,0 if not moved, or you can let background be fixed)
+	•	foregroundPositionX, foregroundPositionY
+	•	messagePositionX, messagePositionY
+	•	namePositionX, namePositionY
+	•	On component mount, set initial states from the merged defaults and URL parameters.
+
+e) FILE UPLOAD HANDLERS
+	•	For background and foreground upload, use onChange events on .
+	•	Convert the file to a local URL via URL.createObjectURL and update the state.
+	•	After background loads, get its natural width and height to display to the user.
+
+f) REAL-TIME TEXT AND POSITION UPDATES
+	•	Provide text inputs for message and name, each updates the corresponding state.
+	•	Provide numeric inputs or sliders for X, Y coordinates of the circular image, message text, and name text.
+	•	Reflect these changes immediately in the preview.
+
+g) PREVIEW RENDERING
+	•	A  container that visually displays:
+	•	The background image (using backgroundImage or an  tag).
+	•	The circular foreground image at the specified X, Y position (CSS absolute positioning).
+	•	The message and name text elements at their respective X, Y positions.
+
+h) DOWNLOAD FUNCTION
+	•	On “Download” button click:
+	1.	Use html2canvas(document.getElementById(‘preview’), { scale: 2 or 3 }) or dom-to-image with similar options.
+	2.	Convert the result to a data URL or blob.
+	3.	Trigger a download by creating a temporary  element and simulating a click.
+
+	5.	MOBILE OPTIMIZATION
+
+	•	Use responsive CSS so the preview fits on smaller screens (media queries or a simple flexible layout).
+	•	Ensure buttons and inputs are large enough to tap easily.
+
+	6.	DELIVERABLES
+
+	•	A single pages/index.js file with all functionality in JavaScript (no TypeScript).
+	•	A styles/globals.css or inline styles for basic formatting.
+	•	A minimal package.json with dependencies: next, react, react-dom, and html2canvas or dom-to-image.
+	•	No server-side or backend code beyond necessary Next.js config.
+
+	7.	TESTING AND VERIFICATION
+
+	•	Test on desktop and mobile to ensure file uploads, text updates, positioning, and final download all work correctly.
+	•	Verify URL parameters correctly override the defaults.
+	•	Check that downloaded images are high resolution (e.g., check resulting file size and clarity).
+
+END OF SPECIFICATION
