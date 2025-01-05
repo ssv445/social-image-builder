@@ -1,0 +1,117 @@
+SINGLE-PAGE IMAGE PERSONALIZATION APP
+(Using Bootstrap, JavaScript, jQuery, and a single index.html)
+	1.	OVERVIEW
+
+	•	This is a single HTML page (index.html) using Bootstrap for styling and jQuery for DOM interactions.
+	•	The page is mobile-friendly.
+	•	All functionality is client-side (no server code).
+
+	2.	CORE FUNCTIONALITY
+a) DEFAULT VALUES & URL OVERRIDES
+
+	•	The app includes default values for:
+	•	Background image URL
+	•	Foreground (circular) image URL
+	•	Text fields (message and name)
+	•	X and Y positions for the images and text
+	•	URL query parameters can override any of these (e.g., ?bg=myBg.jpg&fg=myCircle.png&msg=Hello&name=John&fgX=50&fgY=100&msgX=200&msgY=300).
+	•	On page load, these parameters are parsed and used to override defaults.
+
+b) TWO CONTAINERS
+	•	Original Container:
+	•	A hidden container (e.g., ), with a fixed width and height (e.g., 500px by 500px).
+	•	This container should be visually hidden (for example, by using a negative margin so it’s off-screen).
+	•	It holds all elements (background, circular image, and text) in the correct final layout.
+	•	We use this container for actual image generation.
+	•	Preview Container:
+	•	A visible container () that displays a preview image.
+	•	Whenever the user changes an input (file upload, text input, position, etc.), the app regenerates the content in the hidden original container, captures it, and displays the resulting blob or data URL in this preview container.
+
+c) IMAGE UPLOADS
+	•	Two  elements:
+	•	One for selecting a background image.
+	•	One for selecting a circular foreground image.
+	•	When a file is chosen, it appears in the original container immediately (using URL.createObjectURL).
+	•	For the background image, once loaded, display its width and height in some info label.
+
+d) TEXT INPUTS
+	•	Two text fields: “Message” and “Name,” each with a default string.
+	•	These defaults can be overridden by URL parameters.
+	•	As the user types, the text in the original container updates accordingly.
+
+e) POSITIONING (X, Y)
+	•	Users can enter numeric X, Y positions for the circular image, the “Message,” and the “Name.”
+	•	The app updates the CSS position in the original container.
+
+f) AUTOMATIC PREVIEW GENERATION
+	•	Each time any input changes (image file, text, positions), the app updates the content inside the hidden original container.
+	•	Then, use a client-side library (e.g. html2canvas or dom-to-image) to capture the original container and produce a blob or data URL.
+	•	Show that blob/data URL as an  inside the #preview-container.
+	•	The user thus sees an up-to-date preview without seeing the hidden container.
+
+g) DOWNLOAD FINAL IMAGE
+	•	A “Download” button triggers the same capture logic on the original container (or uses the existing captured blob).
+	•	Offer the image file as a download (e.g., via a temporary  element with a download attribute).
+	•	Use a high resolution (set scale = 2 or 3 in html2canvas or dom-to-image).
+
+	3.	IMPLEMENTATION DETAILS
+a) FILE STRUCTURE
+
+	•	index.html: the single-page app with all elements and scripts.
+	•	Optionally script.js, but you can inline JavaScript if desired.
+	•	No separate server or backend is needed.
+
+b) SETUP & LAYOUT (INDEX.HTML)
+	•	Include Bootstrap via CDN in the .
+	•	Include jQuery and html2canvas or dom-to-image.
+	•	Use Bootstrap’s classes for layout:
+	•	A container (e.g., ).
+	•	Form groups or rows for file inputs, text inputs, and position inputs.
+	•	The hidden original container with fixed width and height (e.g., style=“width:500px; height:500px; margin-left:-9999px; position:absolute”).
+	•	A visible #preview-container that displays the captured image (e.g., an  tag or a  for background image).
+
+c) EVENT HANDLERS (JQUERY)
+	•	On document ready:
+	1.	Parse URL parameters and merge with default values.
+	2.	Populate the original container with initial background, foreground image, text, positions.
+	3.	Immediately capture and show the preview.
+	•	On file change (background or foreground):
+	1.	Set the appropriate  in the original container.
+	2.	Capture again, refresh the preview.
+	•	On text or position input:
+	1.	Update the text or .css({left, top}) of the elements in the original container.
+	2.	Capture again, refresh the preview.
+	•	On “Download” click:
+	1.	Capture the original container at high scale.
+	2.	Convert to data URL or blob.
+	3.	Prompt the user to save (e.g., create a temporary  tag with the data URL).
+
+	4.	BOOTSTRAP USAGE EXAMPLES
+
+	•	Use .row, .col, and .form-group (or .mb-3 in newer versions) for layout and spacing.
+	•	Use .btn.btn-primary for the download button.
+	•	Use .img-fluid or .d-block.img-fluid for images if needed for responsiveness.
+
+	5.	MOBILE OPTIMIZATION
+
+	•	Rely on Bootstrap’s responsive grid and classes.
+	•	Verify that all forms, inputs, and the preview are accessible and usable on small screens.
+
+	6.	DELIVERABLES
+
+	•	A single index.html containing:
+	•	The hidden #original-container with fixed size.
+	•	The visible #preview-container for the final rendered image.
+	•	Inputs for background upload, foreground upload, message, name, X/Y positions, and a download button.
+	•	Linked scripts for jQuery, Bootstrap, and html2canvas or dom-to-image.
+	•	No server code or additional setup required.
+
+	7.	TESTING
+
+	•	Load index.html in modern browsers.
+	•	Check default images and text appear in the preview.
+	•	Confirm file uploads update the hidden container and generate a correct preview.
+	•	Check that adjusting X/Y positions re-renders accurately.
+	•	Verify the download is high resolution.
+
+END OF SPECIFICATION
