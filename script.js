@@ -1,6 +1,7 @@
 const defaults = {
     bg: 'https://picsum.photos/1080/1920',
     fg: 'https://picsum.photos/200/200',
+    quote: 'Your Quote Goes Here',
     message: 'Hello World',
     name: 'John Doe'
 };
@@ -10,6 +11,7 @@ function getUrlParams() {
     return {
         bg: params.get('bg') || defaults.bg,
         fg: params.get('fg') || defaults.fg,
+        quote: params.get('quote') || defaults.quote,
         message: params.get('msg') || defaults.message,
         name: params.get('name') || defaults.name
     };
@@ -45,10 +47,12 @@ function initializeApp() {
     // Set initial values
     $('#original-container').css('background-image', `url(${params.bg})`);
     $('#fg-image').attr('src', params.fg);
+    $('#quote').text(params.quote);
     $('#message').text(params.message);
     $('#name').text(params.name);
 
     // Set input values
+    $('#quote-input').val(params.quote);
     $('#message-input').val(params.message);
     $('#name-input').val(params.name);
 
@@ -58,6 +62,11 @@ function initializeApp() {
 
 $(document).ready(() => {
     initializeApp();
+
+    // Add quote input handler
+    $('#quote-input').on('input', function() {
+        $('#quote').text($(this).val());
+    });
 
     // File upload handlers
     $('#bg-upload').on('change', function(e) {

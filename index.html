@@ -17,6 +17,7 @@
             flex-direction: column;
             justify-content: flex-end;
             padding: 50px;
+            gap: 30px;
         }
         
         #preview-container {
@@ -73,12 +74,23 @@
         #name {
             font-size: 36px;
         }
+
+        .quotation {
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            font-size: 72px;
+            text-align: center;
+            white-space: pre-line;
+            padding: 0 50px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
     <div class="container mt-4">
         <!-- Hidden Original Container -->
         <div id="original-container">
+            <div class="quotation" id="quote"></div>
             <div class="bottom-content">
                 <img class="circular-image" id="fg-image">
                 <div class="text-content">
@@ -115,6 +127,13 @@
             <div class="col-md-6 mb-3">
                 <label class="form-label">Name</label>
                 <input type="text" class="form-control" id="name-input">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 mb-3">
+                <label class="form-label">Quotation</label>
+                <textarea class="form-control" id="quote-input" rows="2"></textarea>
             </div>
         </div>
 
