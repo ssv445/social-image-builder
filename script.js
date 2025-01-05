@@ -1,9 +1,9 @@
 const defaults = {
     bg: 'https://raw.githubusercontent.com/ssv445/social-image-builder/refs/heads/main/images/background-01.png',
-    fg: 'https://raw.githubusercontent.com/ssv445/social-image-builder/refs/heads/main/images/user-01.jpeg',
+    fg: 'https://raw.githubusercontent.com/ssv445/social-image-builder/refs/heads/main/images/user-02.png',
     quote: "अपना संस्थान के साथ जुड़ें हरित संगम 2025 पर्यावरण मेला में – एक अनूठा मेला, जो प्रेरणा और मस्ती का संगम है।",
-    message: "अध्यक्ष, भीलवाड़ा महानगर, अपना संस्थान ",
-    name: 'श्याम सुन्दर राठौड़'
+    message: "आपका विवरण",
+    name: 'आपका नाम'
 };
 
 function getUrlParams() {
