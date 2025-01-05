@@ -2,7 +2,7 @@ const defaults = {
     bg: 'https://raw.githubusercontent.com/ssv445/social-image-builder/refs/heads/main/images/background-02.png',
     fg: 'https://raw.githubusercontent.com/ssv445/social-image-builder/refs/heads/main/images/user-02.png',
     quote: "अपना संस्थान के साथ जुड़ें हरित संगम 2025 पर्यावरण मेला में – एक अनूठा मेला, जो प्रेरणा और मस्ती का संगम है।",
-    message: "आपका विवरण",
+    message: "अपना संस्थान, भीलवाड़ा",
     name: 'आपका नाम'
 };
 
