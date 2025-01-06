@@ -111,6 +111,47 @@ function initializeApp() {
     updatePreview();
 }
 
+let cropper = null;
+let activeImageTarget = null;
+
+function initCropper(imageUrl, aspectRatio = 1) {
+    const image = document.getElementById('cropperImage');
+    image.src = imageUrl;
+    
+    // Destroy existing cropper if any
+    if (cropper) {
+        cropper.destroy();
+    }
+
+    // Initialize cropper
+    cropper = new Cropper(image, {
+        aspectRatio: aspectRatio,
+        viewMode: 1,
+        dragMode: 'move',
+        autoCropArea: 1,
+        restore: false,
+        guides: true,
+        center: true,
+        highlight: false,
+        cropBoxMovable: false,
+        cropBoxResizable: false,
+        toggleDragModeOnDblclick: false,
+    });
+}
+
+function handleImageSelect(e, targetId) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            initCropper(e.target.result);
+            const modal = new bootstrap.Modal(document.getElementById('imageModal'));
+            modal.show();
+        }
+        reader.readAsDataURL(file);
+    }
+}
+
 $(document).ready(() => {
     initializeApp();
 
@@ -185,5 +226,51 @@ $(document).ready(() => {
             $('#original-container').removeClass('show-right-image');
         }
         updatePreview();
+    });
+
+    // Setup image upload buttons
+    $('#leftImageBtn, #rightImageBtn').on('click', function() {
+        activeImageTarget = this.id === 'leftImageBtn' ? 'fg-image' : 'right-image';
+        
+        // Create temporary file input
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = 'image/*';
+        fileInput.onchange = (e) => handleImageSelect(e, activeImageTarget);
+        fileInput.click();
+    });
+
+    // Handle crop button click
+    $('#cropButton').on('click', function() {
+        if (!cropper) return;
+
+        // Get cropped canvas
+        const canvas = cropper.getCroppedCanvas({
+            width: 275,    // Match your circular image size
+            height: 275,
+            imageSmoothingEnabled: true,
+            imageSmoothingQuality: 'high',
+        });
+
+        // Convert to blob and create object URL
+        canvas.toBlob((blob) => {
+            const url = URL.createObjectURL(blob);
+            $(`#${activeImageTarget}`).attr('src', url);
+            
+            // Close modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('imageModal'));
+            modal.hide();
+            
+            // Update preview
+            updatePreview();
+        }, 'image/jpeg', 0.9);
+    });
+
+    // Clean up cropper when modal is hidden
+    $('#imageModal').on('hidden.bs.modal', function () {
+        if (cropper) {
+            cropper.destroy();
+            cropper = null;
+        }
     });
 }); 
