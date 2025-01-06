@@ -1,5 +1,5 @@
 const defaults = {
-    bg: 'https://raw.githubusercontent.com/ssv445/social-image-builder/refs/heads/main/images/background-02.png',
+    bg: 'https://raw.githubusercontent.com/ssv445/social-image-builder/refs/heads/main/images/background-03.png',
     fg: 'https://raw.githubusercontent.com/ssv445/social-image-builder/refs/heads/main/images/user-02.png',
     rightImage: 'https://raw.githubusercontent.com/ssv445/social-image-builder/refs/heads/main/images/user-02.png',
     quote: "स्वच्छ एवं अनूठा मेला: जोशीला खेल-की-रेल (Sports Roadshow), फूलों की मनमोहक प्रदर्शनी (Flower Show), आकर्षक सांस्कृतिक कार्यक्रम, डिस्पोज़ेबल-मुक्त जानकी रसोई (Food Court) — सबका आनंद लेने ज़रूर पधारें!",
