@@ -114,9 +114,32 @@ function initializeApp() {
 let cropper = null;
 let activeImageTarget = null;
 
-function initCropper(imageUrl, aspectRatio = 1) {
+function handleImageSelect(e, targetId) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const imageUrl = e.target.result;
+            const modal = new bootstrap.Modal(document.getElementById('imageModal'));
+            
+            // Set the active target and image URL
+            activeImageTarget = targetId;
+            document.getElementById('cropperImage').src = imageUrl;
+            
+            // Show modal and init cropper after modal is shown
+            modal.show();
+            $('#imageModal').on('shown.bs.modal', function () {
+                initCropper(imageUrl);
+                // Remove the event listener to avoid multiple initializations
+                $(this).off('shown.bs.modal');
+            });
+        }
+        reader.readAsDataURL(file);
+    }
+}
+
+function initCropper(imageUrl) {
     const image = document.getElementById('cropperImage');
-    image.src = imageUrl;
     
     // Destroy existing cropper if any
     if (cropper) {
@@ -125,7 +148,7 @@ function initCropper(imageUrl, aspectRatio = 1) {
 
     // Initialize cropper
     cropper = new Cropper(image, {
-        aspectRatio: aspectRatio,
+        aspectRatio: 1,
         viewMode: 1,
         dragMode: 'move',
         autoCropArea: 1,
@@ -137,19 +160,6 @@ function initCropper(imageUrl, aspectRatio = 1) {
         cropBoxResizable: false,
         toggleDragModeOnDblclick: false,
     });
-}
-
-function handleImageSelect(e, targetId) {
-    const file = e.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            initCropper(e.target.result);
-            const modal = new bootstrap.Modal(document.getElementById('imageModal'));
-            modal.show();
-        }
-        reader.readAsDataURL(file);
-    }
 }
 
 $(document).ready(() => {
