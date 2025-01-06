@@ -23,15 +23,26 @@ function getUrlParams() {
 
 function updatePreview() {
     console.log('updatePreview');
-    html2canvas(document.getElementById('original-container'), {
-        scale: 1,
-        useCORS: true,
-        allowTaint: true
-    }).then(canvas => {
-        const dataUrl = canvas.toDataURL('image/png');
-        $('#preview-image').attr('src', dataUrl);
-        console.log('updatePreview done');
-    });
+    // Add a small delay to ensure DOM updates are complete
+    setTimeout(() => {
+        html2canvas(document.getElementById('original-container'), {
+            scale: 1,
+            useCORS: true,
+            allowTaint: true,
+            logging: false // Reduce console noise
+        }).then(canvas => {
+            const dataUrl = canvas.toDataURL('image/png');
+            $('#preview-image').attr('src', dataUrl);
+            console.log('updatePreview done');
+        });
+    }, 100);
+}
+
+// Update text input handlers to use debounce
+let previewDebounceTimer;
+function debouncedPreview() {
+    clearTimeout(previewDebounceTimer);
+    previewDebounceTimer = setTimeout(updatePreview, 300);
 }
 
 async function shareOrDownload() {
@@ -195,13 +206,12 @@ $(document).ready(() => {
         }
     });
 
-    // Text input handlers
-    $('#message-input').on('input', function() {
-        $('#message').text($(this).val());
-    });
-
-    $('#name-input').on('input', function() {
-        $('#name').text($(this).val());
+    // Text input handlers with debounce
+    $('#message-input, #name-input, #quote-input').on('input', function() {
+        const id = $(this).attr('id');
+        const targetId = id.replace('-input', '');
+        $(`#${targetId}`).text($(this).val());
+        debouncedPreview();
     });
 
     // Preview handler
@@ -219,23 +229,18 @@ $(document).ready(() => {
         }
     });
 
-    // Add image visibility handlers
-    $('#show-left-image').on('change', function() {
+    // Image visibility handlers
+    $('#show-left-image, #show-right-image').on('change', function() {
+        const isLeft = this.id === 'show-left-image';
+        const className = isLeft ? 'show-left-image' : 'show-right-image';
+        
         if (this.checked) {
-            $('#original-container').addClass('show-left-image');
+            $('#original-container').addClass(className);
         } else {
-            $('#original-container').removeClass('show-left-image');
+            $('#original-container').removeClass(className);
         }
-        updatePreview();
-    });
-
-    $('#show-right-image').on('change', function() {
-        if (this.checked) {
-            $('#original-container').addClass('show-right-image');
-        } else {
-            $('#original-container').removeClass('show-right-image');
-        }
-        updatePreview();
+        // Use setTimeout to ensure class changes are applied
+        setTimeout(updatePreview, 100);
     });
 
     // Setup image upload buttons
@@ -254,25 +259,22 @@ $(document).ready(() => {
     $('#cropButton').on('click', function() {
         if (!cropper) return;
 
-        // Get cropped canvas
         const canvas = cropper.getCroppedCanvas({
-            width: 275,    // Match your circular image size
+            width: 275,
             height: 275,
             imageSmoothingEnabled: true,
             imageSmoothingQuality: 'high',
         });
 
-        // Convert to blob and create object URL
         canvas.toBlob((blob) => {
             const url = URL.createObjectURL(blob);
             $(`#${activeImageTarget}`).attr('src', url);
             
-            // Close modal
             const modal = bootstrap.Modal.getInstance(document.getElementById('imageModal'));
             modal.hide();
             
-            // Update preview
-            updatePreview();
+            // Add delay to ensure image is loaded
+            setTimeout(updatePreview, 100);
         }, 'image/jpeg', 0.9);
     });
 
