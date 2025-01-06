@@ -26,7 +26,6 @@
             max-width: 540px;
             aspect-ratio: 9/16;
             border: 1px solid #ddd;
-            margin: 20px auto;
             position: relative;
         }
 
@@ -132,6 +131,21 @@
             max-width: 100%;
             max-height: 100%;
         }
+
+        /* Add/update these styles */
+        .preview-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
     </style>
 </head>
 <body>
@@ -150,26 +164,26 @@
         </div>
 
         <!-- Preview Container -->
-        <div id="preview-container">
-            <img id="preview-image" class="img-fluid">
-        </div>
-
-        <div class="row mt-4">
-            <div class="col-12 d-flex gap-2 mb-3">
-                <button class="btn btn-secondary preview-btn">अपडेट/Update</button>
-                <button class="btn btn-primary download-btn">डाउनलोड/Download</button>
+        <div class="preview-section">
+            <div id="preview-container">
+                <img id="preview-image" class="img-fluid">
+            </div>
+            <div class="action-buttons">
+                <button class="btn btn-secondary preview-btn">अपडेट (Update)</button>
+                <button class="btn btn-primary download-btn">डाउनलोड (Download)</button>
             </div>
         </div>
+
         <!-- Controls -->
         
         <div class="row">
             <div class="col-md-6 mb-3">
-                <label class="form-label">नाम/Name</label>
+                <label class="form-label">नाम (Name)</label>
                 <input type="text" class="form-control" id="name-input">
             </div>
             
             <div class="col-md-6 mb-3">
-                <label class="form-label">विवरण/Description</label>
+                <label class="form-label">विवरण (Description)</label>
                 <input type="text" class="form-control" id="message-input">
             </div>
         </div>
@@ -178,35 +192,35 @@
                 <div class="form-check mb-2">
                     <input class="form-check-input" type="checkbox" id="show-left-image" checked>
                     <label class="form-check-label" for="show-left-image">
-                        बायीं छवि दिखाएं/Show Left Image
+                        बायीं छवि दिखाएं (Show Left Image)
                     </label>
                 </div>
-                <label class="form-label">आपका फोटो/Your Photo</label>
+                <label class="form-label">आपका फोटो (Your Photo)</label>
                 <button class="btn btn-outline-primary w-100" id="leftImageBtn">Upload Image</button>
             </div>
             <div class="col-md-6 mb-3">
                 <div class="form-check mb-2">
                     <input class="form-check-input" type="checkbox" id="show-right-image">
                     <label class="form-check-label" for="show-right-image">
-                        दायीं छवि दिखाएं/Show Right Image
+                        दायीं छवि दिखाएं (Show Right Image)
                     </label>
                 </div>
-                <label class="form-label">दायीं ओर की छवि/Right Image</label>
+                    <label class="form-label">दायीं ओर की छवि (Right Image)</label>
                 <button class="btn btn-outline-primary w-100" id="rightImageBtn">Upload Image</button>
             </div>
         </div>
 
         <div class="row">
             <div class="col-12 mb-3">
-                <label class="form-label">सन्देश/Message</label>
+                <label class="form-label">सन्देश (Message)</label>
                 <textarea class="form-control" id="quote-input" rows="2"></textarea>
             </div>
         </div>
 
         <div class="row mt-4">
-            <div class="col-12 d-flex gap-2 mb-3">
-                <button class="btn btn-secondary preview-btn">अपडेट/Update</button>
-                <button class="btn btn-primary download-btn">डाउनलोड/Download</button>
+            <div class="action-buttons">
+                <button class="btn btn-secondary preview-btn">अपडेट (Update)</button>
+                <button class="btn btn-primary download-btn">डाउनलोड (Download)</button>
             </div>
         </div>
     </div>
