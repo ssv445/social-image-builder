@@ -5,7 +5,7 @@ const defaults = {
     quote: "स्वच्छ एवं अनूठा मेला: खेल-की-रेल (Sports Roadshow), फूलों की मनमोहक प्रदर्शनी (Flower Show), आकर्षक सांस्कृतिक कार्यक्रम, डिस्पोज़ेबल-मुक्त जानकी रसोई (Food Court) — सबका आनंद लेने ज़रूर पधारें!",
     message: "अपना संस्थान, भीलवाड़ा",
     name: 'आपका नाम',
-    allowQuoteEdit: true
+    allowQuoteEdit: false
 };
 
 function getUrlParams() {
@@ -14,8 +14,8 @@ function getUrlParams() {
         bg: params.get('bg') || defaults.bg,
         fg: params.get('fg') || defaults.fg,
         rightImage: params.get('rightImage') || defaults.rightImage,
-        quote: params.get('quote') || defaults.quote,
-        message: params.get('msg') || defaults.message,
+        quote: params.get('quote') || '',
+        message: params.get('msg') || '',
         name: params.get('name') || defaults.name,
         allowQuoteEdit: params.get('allowQuoteEdit') !== 'false'
     };
