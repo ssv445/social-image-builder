@@ -58,10 +58,10 @@ async function shareOrDownload() {
     // Check if Web Share API is supported
     if (navigator.share && navigator.canShare) {
         try {
-            const file = new File([blob], 'harit-sangam-2025.png', { type: 'image/png' });
+            const file = new File([blob], 'rakt-arpan-mahotsav-2025.png', { type: 'image/png' });
             await navigator.share({
-                title: 'हरित संगम 2025',
-                text: 'हरित संगम 2025 पर्यावरण मेला, 10-14 जनवरी 2025, भीलवाड़ा',
+                title: 'रक्त अर्पण महोत्सव 2025',
+                text: 'रक्त अर्पण महोत्सव 2025, 09 मार्च 2025, भीलवाड़ा',
                 files: [file]
             });
         } catch (err) {
